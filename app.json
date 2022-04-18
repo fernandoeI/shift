@@ -1,0 +1,30 @@
+{
+  "expo": {
+    "name": "Shift",
+    "slug": "Shift",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "src/images/assets/icon.png",
+    "splash": {
+      "image": "scr/images/assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "updates": {
+      "fallbackToCacheTimeout": 0
+    },
+    "assetBundlePatterns": ["**/*"],
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "src/images/assets/adaptive-icon.png",
+        "backgroundColor": "#FFFFFF"
+      }
+    },
+    "web": {
+      "favicon": "src/images/assets/favicon.png"
+    }
+  }
+}
