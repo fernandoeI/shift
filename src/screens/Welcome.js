@@ -1,15 +1,7 @@
-import {
-  Button,
-  Center,
-  Container,
-  Flex,
-  Heading,
-  Image,
-  Text,
-} from "native-base";
+import { Button, Center, Flex, Heading, Image, Text } from "native-base";
 import React from "react";
 
-export default function Welcome() {
+export default function Welcome({ navigation }) {
   return (
     <Center flex={1} paddingX={10} safeArea>
       <Center flex={1}>
@@ -28,12 +20,11 @@ export default function Welcome() {
         />
       </Center>
       <Flex pb={6}>
-        <Button width="80">¡Empecemos!</Button>
+        <Button width="80" onPress={() => navigation.navigate("Stepper")}>
+          ¡Empecemos!
+        </Button>
         <Text mt={4} textAlign="center" color="gray.400">
-          ¿Ya tienes una cuenta?{" "}
-          <Text onPress={() => console.log("Login screen")} color="darkText">
-            Inicia sesión
-          </Text>
+          ¿Ya tienes una cuenta? <Text color="darkText">Inicia sesión</Text>
         </Text>
       </Flex>
     </Center>

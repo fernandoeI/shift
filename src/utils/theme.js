@@ -23,6 +23,9 @@ export const theme = extendTheme({
   colors: {
     primary: {
       600: "#2c2c2c",
+      700: "#FDB35D",
+      800: "#3BCBB2",
+      900: "#E3A6AE",
     },
     singletons: {
       darkText: "#212121",

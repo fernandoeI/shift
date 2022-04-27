@@ -4,9 +4,9 @@
     "slug": "Shift",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "src/images/assets/icon.png",
+    "icon": "./src/assets/images/icon.png",
     "splash": {
-      "image": "scr/images/assets/splash.png",
+      "image": "./src/assets/images/splash.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
@@ -19,12 +19,12 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "src/images/assets/adaptive-icon.png",
+        "foregroundImage": "./src/assets/images/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
       }
     },
     "web": {
-      "favicon": "src/images/assets/favicon.png"
+      "favicon": "./src/assets/images/favicon.png"
     }
   }
 }

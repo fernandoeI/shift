@@ -8,6 +8,8 @@ import {
   Outfit_500Medium,
   Outfit_600SemiBold,
 } from "@expo-google-fonts/outfit";
+import { NavigationContainer } from "@react-navigation/native";
+import AuthStack from "./src/navigation/AuthStack";
 
 export default function App() {
   let [fontsLoaded] = useFonts({
@@ -21,7 +23,9 @@ export default function App() {
   }
   return (
     <NativeBaseProvider theme={theme}>
-      <Welcome />
+      <NavigationContainer>
+        <AuthStack />
+      </NavigationContainer>
     </NativeBaseProvider>
   );
 }
