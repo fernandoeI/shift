@@ -1,22 +1,25 @@
-import React, { useRef, useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import {
   Box,
   Button,
   Center,
   Checkbox,
   FlatList,
+  Flex,
   Heading,
   IconButton,
   Image,
   Input,
   Pressable,
   ScrollView,
+  Stack,
   Text,
   useTheme,
   VStack,
 } from "native-base";
 import Onboarding from "react-native-onboarding-swiper";
 import { FontAwesome } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/native";
 
 const Dots = () => {
   return (
@@ -28,40 +31,25 @@ const Dots = () => {
   );
 };
 
-const Skip = ({ ...props }) => (
-  <Pressable {...props}>
-    <Text>Omitir</Text>
-  </Pressable>
-);
-
-const Next = ({ ...props }) => (
-  <Button
-    {...props}
-    px={8}
-    style={{
-      position: "absolute",
-    }}
-  >
-    Continuar
-  </Button>
-);
-
-const Done = ({ ...props }) => (
-  <Pressable {...props}>
-    <Text>Hecho</Text>
-  </Pressable>
-);
-
-export default Stepper = ({ navigation }) => {
+export default Stepper = () => {
+  const onboardingRef = useRef(null);
   const theme = useTheme();
+  const navigation = useNavigation();
+  const [step, setStep] = useState(0);
+
   return (
     <Onboarding
+      ref={onboardingRef}
       bottomBarHighlight={false}
       containerStyles={{ backgroundColor: theme.colors.white }}
-      SkipButtonComponent={Skip}
-      NextButtonComponent={Next}
-      DoneButtonComponent={Done}
+      skipLabel="Volver"
+      nextLabel="Siguiente"
       DotComponent={Dots}
+      onSkip={() => {
+        if (step === 0) return navigation.navigate("Welcome");
+        onboardingRef.current.goToPage(step - 1, true);
+      }}
+      pageIndexCallback={(index) => setStep(index)}
       flatlistProps={{ scrollEnabled: false }}
       pages={[
         // PASO 1
@@ -177,7 +165,7 @@ export default Stepper = ({ navigation }) => {
               </Heading>
             </VStack>
           ),
-          title: <Interests />,
+          title: <Hobbies />,
           subtitle: (
             <Center>
               <Text px={16} my={12} textAlign="center" color="primary.600">
@@ -298,7 +286,7 @@ const ProfileImage = () => {
           }}
           horizontal={true}
           flexDirection="row"
-          style={{ alignContent: "center" }}
+          style={{ alignItems: "center" }}
           renderItem={({ item }) => (
             <Pressable onPress={() => onPressHandler(item.id)}>
               <Box
@@ -307,14 +295,14 @@ const ProfileImage = () => {
                   shadowColor: "rgba(0,0,0, 0.4)",
                 }}
                 bg={selectedItem === item.id ? "primary.600" : "white"}
-                p={selectedItem === item.id ? "3" : "2.5"}
+                p={selectedItem === item.id ? "4" : "2.5"}
                 rounded="5"
-                m={"4"}
+                m="4"
               >
                 <Image
                   source={item.avatarName}
                   alt="profile"
-                  size="10"
+                  size="12"
                   resizeMode="contain"
                 />
               </Box>
@@ -326,51 +314,78 @@ const ProfileImage = () => {
   );
 };
 
-const Interests = () => {
-  const [selectedItem, setSelectedItem] = useState();
-  const onPressHandler = (id) => {
-    setSelectedItem(id);
-    console.log(selectedItem);
+const Hobbies = () => {
+  const [selectedItems, setSelectedItems] = useState([]);
+  const onPressHandler = (item) => {
+    const newArray = [...selectedItems];
+    const found = newArray.findIndex((i) => i.name === item.name);
+    if (found !== -1) {
+      newArray.splice(found, 1);
+    } else {
+      newArray.push(item);
+    }
+    setSelectedItems(newArray);
   };
 
   const data = [
     {
-      id: 1,
-      name: "Body",
+      name: "BODY",
+      subtitle: "Workouts",
     },
     {
-      id: 2,
-      name: "Mind",
+      name: "MIND",
+      subtitle: "Meditación y mini retos",
     },
     {
-      id: 3,
-      name: "Nutrición",
+      name: "NUTRICIÓN",
+      subtitle: "Planes, recetas y amor propio",
     },
     {
-      id: 4,
-      name: "Talleres",
+      name: "TALLERES",
+      subtitle: "Una nueva forma de crecer",
     },
   ];
   return (
-    <Center maxHeight="80">
-      {data.map((item) => (
-        <Pressable
-          onPress={() => {
-            onPressHandler(item.id);
-          }}
-          key={item.id}
-        >
-          <Box
-            maxW="9672"
-            shadow={4}
-            bg={selectedItem === item.id ? "primary.600" : "white"}
-            p="6"
-            rounded="100"
-            m={2.5}
-          />
+    <Stack justifyContent="center" direction="row" flexWrap="wrap">
+      {data.map((item, key) => (
+        <Pressable onPress={() => onPressHandler(item)} key={key}>
+          <Center
+            m={3}
+            shadow={2}
+            size="2xl"
+            bg={
+              selectedItems.some((i) => i.name === item.name)
+                ? "primary.600"
+                : "gray.100"
+            }
+            borderRadius={8}
+            p="2.5"
+          >
+            <Text
+              color={
+                selectedItems.some((i) => i.name === item.name)
+                  ? "white"
+                  : "primary.600"
+              }
+              fontSize={20}
+              fontWeight="semibold"
+            >
+              {item.name}
+            </Text>
+            <Text
+              color={
+                selectedItems.some((i) => i.name === item.name)
+                  ? "white"
+                  : "primary.600"
+              }
+              textAlign="center"
+            >
+              {item.subtitle}
+            </Text>
+          </Center>
         </Pressable>
       ))}
-    </Center>
+    </Stack>
   );
 };
 
@@ -447,24 +462,40 @@ const Register = () => {
 
 const Password = () => {
   const conditions = [
-    "8+ caracteres",
-    "2 simbolos",
-    "1 letra mayuscula",
-    "1 numero",
+    {
+      label: "8+ caracteres",
+      isChecked: (text) => text.length > 8,
+    },
+    {
+      label: "1 simbolo ( ! _ @ # $ % & ? )",
+      isChecked: (text) => text.match(/[_!@#$%&?]/),
+    },
+    {
+      label: "1 letra mayuscula",
+      isChecked: (text) => text.match(/(?=.*[A-Z])/),
+    },
+    {
+      label: "1 numero",
+      isChecked: (text) => text.match(/(?=.*\d)/),
+    },
   ];
   const [isChecked, setIsChecked] = useState(false);
   const [value, setValue] = useState("");
+  const [error, setError] = useState(false);
 
-  const handleChange = (text) => setValue(text);
+  const handleChange = (text) => {
+    setError(false);
+    if (
+      text.length > 8 ||
+      text.match(/(?=.*[A-Z])/) ||
+      text.match(/[_!@#$%&?]/) ||
+      text.match(/(?=.*\d)/)
+    ) {
+      setError(true);
+    }
 
-  useEffect(() => {
-    value.length > 8
-      ? console.log("La contraseña es mayor a 8 caracteres")
-      : console.log("La contraseña no cumple con la longitud");
-    value.charAt(0) === value.charAt(0).toUpperCase()
-      ? console.log("La contraseña empieza con mayuscula")
-      : console.log("La contraseña no empieza con mayuscula");
-  }, [value]);
+    setValue(text.trim());
+  };
 
   return (
     <VStack space="10" w="5/6">
@@ -475,17 +506,26 @@ const Password = () => {
           height="12"
           borderColor="primary.600"
           value={value}
+          type="password"
           onChangeText={handleChange}
         />
       </Center>
       <Box>
-        {conditions.map((item) => {
-          return (
-            <Checkbox value={item} my={2} key={item} isChecked={isChecked}>
-              {item}
-            </Checkbox>
-          );
-        })}
+        {conditions.map((item, key) => (
+          <Checkbox
+            key={key}
+            value={item.label}
+            my={2}
+            isDisabled
+            isChecked={item.isChecked(value)}
+            colorScheme="green"
+            _text={{
+              color: item.isChecked(value) ? "green.600" : "primary.600",
+            }}
+          >
+            {item.label}
+          </Checkbox>
+        ))}
       </Box>
       <Center>
         <Text color="gray.400">o ingresa con</Text>
@@ -498,16 +538,21 @@ const Password = () => {
             as: FontAwesome,
             name: "facebook-square",
             color: "blue.800",
+            size: "2xl",
           }}
         />
         <IconButton
           size="lg"
           variant="unstyled"
-          _icon={{
-            as: FontAwesome,
-            name: "google",
-            color: "red.600",
-          }}
+          icon={
+            <Image
+              source={{
+                uri: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/800px-Google_%22G%22_Logo.svg.png",
+              }}
+              alt="google logo"
+              size={8}
+            />
+          }
         />
         <IconButton
           size="lg"
@@ -516,6 +561,7 @@ const Password = () => {
             as: FontAwesome,
             name: "apple",
             color: "primary.600",
+            size: "2xl",
           }}
         />
       </Center>
