@@ -1,7 +1,7 @@
 import React from "react";
-import { NativeBaseProvider } from "native-base";
-import Welcome from "./src/screens/Welcome";
+import { NativeBaseProvider, StatusBar } from "native-base";
 import { theme } from "./src/utils/theme";
+
 import {
   useFonts,
   Outfit_400Regular,
@@ -26,6 +26,7 @@ export default function App() {
       <NavigationContainer>
         <AuthStack />
       </NavigationContainer>
+      <StatusBar barStyle="dark-content" />
     </NativeBaseProvider>
   );
 }

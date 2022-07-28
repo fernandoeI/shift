@@ -24,7 +24,10 @@ export default function Welcome({ navigation }) {
           ¡Empecemos!
         </Button>
         <Text mt={4} textAlign="center" color="gray.400">
-          ¿Ya tienes una cuenta? <Text color="darkText">Inicia sesión</Text>
+          ¿Ya tienes una cuenta?{" "}
+          <Text color="darkText" onPress={() => navigation.navigate("SignIn")}>
+            Inicia sesión
+          </Text>
         </Text>
       </Flex>
     </Center>

@@ -126,6 +126,7 @@ export default Stepper = () => {
       ref={onboardingRef}
       bottomBarHighlight={false}
       containerStyles={{ backgroundColor: theme.colors.white }}
+      onDone={() => navigation.navigate("Settings")}
       skipLabel="Volver"
       nextLabel="Siguiente"
       DotComponent={Dots}

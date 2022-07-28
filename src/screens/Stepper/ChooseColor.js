@@ -23,7 +23,7 @@ export default ChooseColor = ({ selectedColor, setSelectedColor }) => {
             rounded="100"
             m="1"
           >
-            <Box maxW="9672" bg={item} p="7" rounded="100" m={1} />
+            <Box bg={item} p="7" rounded="100" m={1} />
           </Box>
         </Pressable>
       ))}
