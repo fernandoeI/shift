@@ -15,31 +15,31 @@ export default ChooseImageProfile = ({ selectedItem, setSelectedItem }) => {
   const data = [
     {
       id: 1,
-      avatarName: require("../../assets/images/profile/Bear.png"),
+      avatarName: require("../../../assets/images/profile/Bear.png"),
     },
     {
       id: 2,
-      avatarName: require("../../assets/images/profile/Cat.png"),
+      avatarName: require("../../../assets/images/profile/Cat.png"),
     },
     {
       id: 3,
-      avatarName: require("../../assets/images/profile/Delicious.png"),
+      avatarName: require("../../../assets/images/profile/Delicious.png"),
     },
     {
       id: 4,
-      avatarName: require("../../assets/images/profile/FaceMask.png"),
+      avatarName: require("../../../assets/images/profile/FaceMask.png"),
     },
     {
       id: 5,
-      avatarName: require("../../assets/images/profile/Pinata.png"),
+      avatarName: require("../../../assets/images/profile/Pinata.png"),
     },
     {
       id: 6,
-      avatarName: require("../../assets/images/profile/Pumpking.png"),
+      avatarName: require("../../../assets/images/profile/Pumpking.png"),
     },
     {
       id: 7,
-      avatarName: require("../../assets/images/profile/Smile.png"),
+      avatarName: require("../../../assets/images/profile/Smile.png"),
     },
   ];
 

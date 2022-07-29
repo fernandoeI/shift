@@ -1,4 +1,4 @@
-import { Box, Center, Pressable, Stack } from "native-base";
+import { Box, Pressable, Stack } from "native-base";
 import React from "react";
 
 export default ChooseColor = ({ selectedColor, setSelectedColor }) => {

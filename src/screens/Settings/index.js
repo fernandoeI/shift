@@ -13,19 +13,15 @@ export default Settings = () => {
     },
     {
       option: "Cambiar contraseña",
-      screen: "Sujitha Mathur",
+      screen: "ChangePassword",
     },
     {
       option: "Personaliza tu app",
-      screen: "Anci Barroco",
+      screen: "CustomizeTheme",
     },
     {
       option: "Quiz de edad mental",
       screen: "Aniket Kumar",
-    },
-    {
-      option: "Calendario de actividades",
-      screen: "Kiara",
     },
     {
       option: "Comparte con tus amigos",
@@ -47,7 +43,7 @@ export default Settings = () => {
   ];
   const navigation = useNavigation();
   return (
-    <Layout title="Ajustes">
+    <Layout title="Ajustes" isGoBack={true}>
       <Box mt={3}>
         <FlatList
           data={data}

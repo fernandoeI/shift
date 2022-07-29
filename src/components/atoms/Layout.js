@@ -3,7 +3,7 @@ import { Center, Flex, Heading, IconButton, Pressable } from "native-base";
 import { Ionicons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 
-export default Layout = ({ children, title }) => {
+export default Layout = ({ children, title, subtitle }) => {
   const navigation = useNavigation();
   return (
     <Flex align="flex-start" safeAreaTop safeAreaBottom>
@@ -20,9 +20,16 @@ export default Layout = ({ children, title }) => {
       />
 
       <Flex px={6} width="100%">
-        <Heading fontWeight="semibold" fontSize={36}>
-          {title}
-        </Heading>
+        {title ? (
+          <Heading fontWeight="semibold" fontSize={36}>
+            {title}
+          </Heading>
+        ) : (
+          <Heading fontWeight="semibold" fontSize={26}>
+            {subtitle}
+          </Heading>
+        )}
+
         {children}
       </Flex>
     </Flex>

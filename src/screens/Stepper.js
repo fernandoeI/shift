@@ -1,31 +1,15 @@
-import React, { useState, useEffect, useRef } from "react";
-import {
-  Box,
-  Center,
-  Checkbox,
-  FlatList,
-  Heading,
-  IconButton,
-  Image,
-  Input,
-  Pressable,
-  ScrollView,
-  Stack,
-  Text,
-  useTheme,
-  VStack,
-} from "native-base";
+import React, { useState, useRef } from "react";
+import { Box, useTheme } from "native-base";
 import Onboarding from "react-native-onboarding-swiper";
-import { FontAwesome } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
-import StepTitle from "../../components/atoms/StepTitle";
-import ChooseColor from "./ChooseColor";
-import StepSubtitle from "../../components/atoms/StepSubtitle";
-import ChooseImageProfile from "./ChooseImageProfile";
-import ChooseHabits from "./ChooseHabits";
-import SignupEmail from "./SignupEmail";
-import SignupPassword from "./SignupPassword";
-import ChooseHobbies from "./ChooseHobbies";
+import StepTitle from "../components/atoms/StepTitle";
+import ChooseColor from "../components/atoms/ChooseColor";
+import StepSubtitle from "../components/atoms/StepSubtitle";
+import ChooseImageProfile from "../components/atoms/Stepper/ChooseImageProfile";
+import ChooseHabits from "../components/atoms/Stepper/ChooseHabits";
+import SignupEmail from "../components/molecules/SignupEmail";
+import SignupPassword from "../components/atoms/Stepper/SignupPassword";
+import ChooseHobbies from "../components/atoms/Stepper/ChooseHobbies";
 
 const Dots = () => {
   return (

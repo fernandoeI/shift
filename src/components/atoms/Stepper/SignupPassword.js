@@ -1,7 +1,17 @@
-import { Box, Center, Checkbox, Input, VStack } from "native-base";
+import {
+  Box,
+  Center,
+  Checkbox,
+  Input,
+  Stack,
+  useTheme,
+  VStack,
+} from "native-base";
 import React, { useState } from "react";
+import { OutlinedTextField } from "rn-material-ui-textfield";
 
 export default SignupPassword = ({ value, setValue }) => {
+  const theme = useTheme();
   const conditions = [
     {
       label: "8+ caracteres",
@@ -37,25 +47,25 @@ export default SignupPassword = ({ value, setValue }) => {
   };
 
   return (
-    <VStack space="10" w="5/6">
-      <Center>
-        <Input
-          variant="outline"
-          placeholder="Contraseña"
-          height="12"
-          borderColor="primary.600"
+    <Stack space="10" width="100%" px={6}>
+      <Stack>
+        <OutlinedTextField
+          label="Contraseña"
+          baseColor={theme.colors.primary[600]}
+          lineWidth={2}
           value={value}
-          type="password"
           onChangeText={handleChange}
+          textContentType="password"
+          secureTextEntry
         />
-      </Center>
-      <Box>
+      </Stack>
+      <Stack>
         {conditions.map((item, key) => (
           <Checkbox
             key={key}
             value={item.label}
+            isReadOnly
             my={2}
-            isDisabled
             isChecked={item.isChecked(value)}
             colorScheme="green"
             _text={{
@@ -65,7 +75,7 @@ export default SignupPassword = ({ value, setValue }) => {
             {item.label}
           </Checkbox>
         ))}
-      </Box>
-    </VStack>
+      </Stack>
+    </Stack>
   );
 };

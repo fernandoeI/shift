@@ -8,8 +8,7 @@ import {
   Outfit_500Medium,
   Outfit_600SemiBold,
 } from "@expo-google-fonts/outfit";
-import { NavigationContainer } from "@react-navigation/native";
-import AuthStack from "./src/navigation/AuthStack";
+import Navigation from "./src/navigation/Navigation";
 
 export default function App() {
   let [fontsLoaded] = useFonts({
@@ -23,9 +22,7 @@ export default function App() {
   }
   return (
     <NativeBaseProvider theme={theme}>
-      <NavigationContainer>
-        <AuthStack />
-      </NavigationContainer>
+      <Navigation />
       <StatusBar barStyle="dark-content" />
     </NativeBaseProvider>
   );
